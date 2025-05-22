@@ -1,0 +1,11 @@
+USEFUL INFO:
+- The Bottom and Top security labels are located in the package 'snitch.labels.standard'
+- When using dependent labels, one can use the top and bot parameters using, respectively, the keywords '_top_' and
+  '_bot_' as a label parameter.
+
+
+
+
+To compile security labels and generate the lattice, run the following command from the root of the project:
+
+ java -cp "libs/*" snitch.instrumentor.Main --labels-only -labelsIn ./src/test/resources/labels/ -labelsOut ./labels
