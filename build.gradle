@@ -5,6 +5,7 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
+
 repositories {
     mavenCentral()
 }
@@ -19,4 +20,10 @@ dependencies {
 test {
     systemProperty "snitch.logging.level", "OFF"
     useJUnitPlatform()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
 }

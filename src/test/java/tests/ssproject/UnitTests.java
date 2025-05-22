@@ -137,4 +137,21 @@ public class UnitTests {
         endpoint.getBalance();
     }
 
+    @Test
+    public void testCheck() {
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+
+        final IBankEndpoint endpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+        final IBankEndpoint endpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
+
+        endpoint0.getBalance();
+
+        endpoint1.getBalance();
+    }
+
 }
