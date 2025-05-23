@@ -138,12 +138,11 @@ public class UnitTests {
     }
 
     @Test
-    public void testCheck() {
+    public void testGetBalanceCheck() {
         final IBank bank = newBank();
 
         final var id0 = bank.newAccount();
         final var id1 = bank.newAccount();
-
 
         final IBankEndpoint endpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
 
@@ -152,6 +151,76 @@ public class UnitTests {
         endpoint0.getBalance();
 
         endpoint1.getBalance();
+    }
+
+    @Test
+    public void testEmployeesBankAccountAcess(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        employeeEndpoint.averageBalance();
+
+        employeeEndpoint.getBalance();
+    }
+
+
+    @Test
+    public void testLogsMustNotIncludeAccInfo(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        System.out.println(employeeEndpoint.getLog());
+
+        System.out.println(clientEndpoint.getLog());
+        //clientEndpoint.getLog();
+    }
+
+    @Test
+    public void testLogs(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        employeeEndpoint.getLog();
+
+        clientEndpoint.getLog();
+    }
+
+
+    @Test
+    public void testClientTransfer() {
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+        final IBankEndpoint clientEndpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
+
+        clientEndpoint0.deposit(10.0);
+
+        final var balance = clientEndpoint0.getBalance();
+        System.out.println("Sender balance: " + balance);
+
+        clientEndpoint0.transfer(id1, 5.0);
+
     }
 
 }
