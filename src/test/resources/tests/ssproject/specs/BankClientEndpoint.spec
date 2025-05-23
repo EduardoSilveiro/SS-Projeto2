@@ -8,7 +8,7 @@ public class BankClientEndpoint {
 
     public double:<=Client(userId) getBalance();
 
-    public double:<=Client(userId) transfer(int:Client(receiverId) receiverId, double amount);
+    public double:<=Client(userId) transfer(int receiverId, double amount);
 
     public double:<=Client(userId) deposit(double amount);
 

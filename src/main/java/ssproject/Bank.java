@@ -71,8 +71,9 @@ public class Bank implements IBank {
         } else {
             Log.getInstance().logSuccessfulTransaction(senderId, receiverId, amount);
             sender.withdraw(amount);
-            double validatedAmount = newAmountForReceiver(amount);;
-            deposit(receiverId, validatedAmount);
+            double validatedAmount = newAmountForReceiver(amount);
+            System.out.println("AGORA É QUE VAMOS ENTRAR NO DEPOSIT");
+            receiver.deposit(validatedAmount);
         }
 
         return sender.getBalance();
