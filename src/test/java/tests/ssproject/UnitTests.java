@@ -203,7 +203,7 @@ public class UnitTests {
         clientEndpoint.getLog();
     }
 
-
+    //TODO AINDA POR FAZER
     @Test
     public void testClientTransfer() {
         final IBank bank = newBank();
@@ -220,6 +220,29 @@ public class UnitTests {
         System.out.println("Sender balance: " + balance);
 
         clientEndpoint0.transfer(id1, 5.0);
+
+    }
+
+    @Test
+    public void testAuditorAverage() {
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+        final var id2 = bank.newAccount();
+
+        final IBankEndpoint client = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+        final IBankEndpoint auditor = newBankEndpoint(BankAuditorEndpoint.class, bank, id1);
+        final IBankEndpoint employee = newBankEndpoint(BankEmployeeEndpoint.class, bank, id2);
+
+        client.deposit(10.0);
+
+        final var balance = client.getBalance();
+        System.out.println("Sender balance: " + balance);
+
+        auditor.averageBalance();
+        employee.averageBalance();
+        //client.averageBalance(); O CLIENT NAO PODE FAZER averageBalance(); -> quando descomentado dá leak
 
     }
 

@@ -9,6 +9,7 @@ public class Account {
 
     public Account(int accountId) {
         this.accountId = accountId;
+        this.balance = 0;
     }
 
 
