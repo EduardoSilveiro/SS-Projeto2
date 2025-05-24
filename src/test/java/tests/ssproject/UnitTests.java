@@ -138,37 +138,104 @@ public class UnitTests {
     }
 
     @Test
-    public void testCheck() {
+    public void testEmployeesBankAccountAcess(){
         final IBank bank = newBank();
 
         final var id0 = bank.newAccount();
         final var id1 = bank.newAccount();
 
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
 
-        final IBankEndpoint endpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
 
-        final IBankEndpoint endpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
+        employeeEndpoint.averageBalance();
 
-        endpoint0.getBalance();
+        employeeEndpoint.getBalance();
+    }
+    //Cliente  não pode ver o averageBalance é suposto dar information leak
+    @Test
+    public void test_Client_Can_Not_Acess_Average_Balance(){
+        final IBank bank = newBank();
 
-        endpoint1.getBalance();
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        clientEndpoint.averageBalance();
+
+    }
+
+
+    //Employee pode ver o averageBalance é suposto não dar information leak
+    @Test
+    public void test_Employee_Can_Acess_Average_Balance(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint employeeEndpoint1 = newBankEndpoint(BankEmployeeEndpoint.class, bank, id0);
+
+        final IBankEndpoint employeeEndpoint2 = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        employeeEndpoint1.averageBalance();
+        employeeEndpoint2.averageBalance();
+    }
+
+
+    @Test
+    public void testLogsMustNotIncludeAccInfo(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        System.out.println(employeeEndpoint.getLog());
+
+        System.out.println(clientEndpoint.getLog());
+        //clientEndpoint.getLog();
     }
 
     @Test
-    public void testCheck2() {
+    public void testLogs(){
         final IBank bank = newBank();
 
         final var id0 = bank.newAccount();
         final var id1 = bank.newAccount();
 
-        bank.newAccount();
-        final IBankEndpoint endpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
 
-        final IBankEndpoint endpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
-        endpoint0.deposit(100.0);
-        endpoint1.deposit(100.0);
-        endpoint0.transfer(id0, 100.0);
-        endpoint1.transfer(id1, 100.0);
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        employeeEndpoint.getLog();
+
+        clientEndpoint.getLog();
+    }
+
+
+    @Test
+    public void testClientTransfer() {
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint clientEndpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+        final IBankEndpoint clientEndpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
+
+        clientEndpoint0.deposit(10.0);
+
+        final var balance = clientEndpoint0.getBalance();
+        System.out.println("Sender balance: " + balance);
+
+        clientEndpoint0.transfer(id1, 5.0);
 
     }
 

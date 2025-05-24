@@ -8,4 +8,6 @@ public class BankClientEndpoint {
 
     public double:<=Client(userId) getBalance();
 
+    public double:>Client(userId) averageBalance();
+
 }
