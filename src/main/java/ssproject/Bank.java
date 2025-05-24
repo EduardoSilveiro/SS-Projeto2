@@ -64,6 +64,7 @@ public class Bank implements IBank {
     public double transfer(int senderId, int receiverId, double amount) {
         final var sender = getAccount(senderId);
         final var senderBalance = sender.getBalance();
+        final var receiver = getAccount(receiverId);
 
         if (senderBalance < amount) {
             Log.getInstance().logFailedTransaction(senderId, receiverId, amount, Double.toString(senderBalance));
@@ -71,11 +72,15 @@ public class Bank implements IBank {
             Log.getInstance().logSuccessfulTransaction(senderId, receiverId, amount);
             sender.withdraw(amount);
             getAccount(senderId).deposit(amount);
+            double validatedAmount = newAmountForReceiver(amount);;
+            deposit(receiverId, validatedAmount);
         }
 
         return sender.getBalance();
     }
-
+    private double newAmountForReceiver(double amount) {
+        return amount;
+    }
 
     @Override
     public double getAverageBalance() {
