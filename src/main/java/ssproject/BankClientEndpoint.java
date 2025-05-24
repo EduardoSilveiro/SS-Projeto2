@@ -18,7 +18,7 @@ public class BankClientEndpoint implements IBankEndpoint {
 
     @Override
     public double getBalance() {
-        return bank.getAccountBalance(this.userId);
+        return bank.getAccountBalance(0);
     }
 
     @Override
