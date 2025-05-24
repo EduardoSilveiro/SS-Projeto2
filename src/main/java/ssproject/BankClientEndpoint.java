@@ -33,7 +33,7 @@ public class BankClientEndpoint implements IBankEndpoint {
 
     @Override
     public double transfer(int receiverId, double amount) {
-        return bank.transfer(receiverId, userId, amount);
+        return bank.transfer(userId, receiverId, amount);
     }
 
     @Override
