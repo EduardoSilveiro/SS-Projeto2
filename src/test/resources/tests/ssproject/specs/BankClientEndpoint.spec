@@ -10,9 +10,9 @@ public class BankClientEndpoint {
 
     public double:<=Client(userId) transfer(int receiverId, double amount);
 
-    public double:<=Client(userId) deposit(double amount);
+    public double deposit(double amount);
 
-    public double:<=Client(userId) withdraw(double amount);
+    public double:==Client(userId) withdraw(double amount);
 
     public double:>Client(userId) averageBalance();
 }

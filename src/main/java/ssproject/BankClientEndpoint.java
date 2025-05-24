@@ -29,7 +29,8 @@ public class BankClientEndpoint implements IBankEndpoint {
 
     @Override
     public double deposit(double amount) {
-        return bank.deposit(userId, amount);
+
+        return bank.deposit(this.userId, amount);
     }
 
     @Override

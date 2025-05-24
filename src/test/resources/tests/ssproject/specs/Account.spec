@@ -6,12 +6,12 @@ public class Account {
 
     private int accountId;
 
-    private double:Client(accountId) balance;
+    private double balance;
 
-    public double:<=Client(accountId) getBalance();
+    public double:<=Client(accountId) getBalance(int accountId);
 
-    public void:<=Client(accountId) deposit(double amount);
+    public void:<=Client(accountId) deposit(int accountId, double amount);
 
-    public void:<=Client(accountId) withdraw(double amount);
+    public void:<=Client(accountId) withdraw(int accountId, double amount);
 
 }

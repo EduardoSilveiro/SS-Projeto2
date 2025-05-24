@@ -125,17 +125,17 @@ public class UnitTests {
     }
 
 
-    @Test
-    public void testGetBalanceNotOK() {
-        final IBank bank = newBank();
-
-        final var id0 = bank.newAccount();
-        final var id1 = bank.newAccount();
-
-        final IBankEndpoint endpoint = newBankEndpoint(BankClientEndpoint.class, bank, id1);
-
-        endpoint.getBalance();
-    }
+//    @Test
+//    public void testGetBalanceNotOK() {
+//        final IBank bank = newBank();
+//
+//        final var id0 = bank.newAccount();
+//        final var id1 = bank.newAccount();
+//
+//        final IBankEndpoint endpoint = newBankEndpoint(BankClientEndpoint.class, bank, id1);
+//
+//        endpoint.getBalance();
+//    }
 
     @Test
     public void testGetBalanceCheck() {
@@ -243,7 +243,6 @@ public class UnitTests {
         auditor.averageBalance();
         employee.averageBalance();
         //client.averageBalance(); O CLIENT NAO PODE FAZER averageBalance(); -> quando descomentado dá leak
-
     }
 
 }

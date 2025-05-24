@@ -1,5 +1,6 @@
 package ssproject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,60 +31,60 @@ public class Bank implements IBank {
 
     @Override
     public double getAccountBalance(int accountId) {
-        return getAccount(accountId).getBalance();
+        return getAccount(accountId).getBalance(accountId);
     }
 
     @Override
     public double withdraw(int accountId, double amount) {
         final var account = getAccount(accountId);
-        final var accountBalance = account.getBalance();
+        final var accountBalance = account.getBalance(accountId);
 
         if (accountBalance < amount) {
             Log.getInstance().logFailedWithdrawal(accountId, amount, Double.toString(accountBalance));
         } else {
             Log.getInstance().logSuccessfulWithdrawal(accountId, amount);
-            account.withdraw(amount);
+            account.withdraw(accountId, amount);
         }
 
-        return account.getBalance();
+        return account.getBalance(accountId);
     }
 
     @Override
     public double deposit(int accountId, double amount) {
+        System.out.println("Entered deposit of bank");
         final var account = getAccount(accountId);
+        System.out.println("Passed the getAccount");
 
-        Log.getInstance().logDeposit(accountId, account.getBalance());
+        Log.getInstance().logDeposit(accountId, account.getBalance(accountId));
 
-        account.deposit(amount);
-
-        return account.getBalance();
+        System.out.println("Before deposit");
+        account.deposit(accountId, amount);
+        System.out.println("Going to print balance");
+        return account.getBalance(accountId);
     }
 
 
     @Override
     public double transfer(int senderId, int receiverId, double amount) {
         final var sender = getAccount(senderId);
-        final var senderBalance = sender.getBalance();
+        final var senderBalance = sender.getBalance(senderId);
         final var receiver = getAccount(receiverId);
 
         if (senderBalance < amount) {
             Log.getInstance().logFailedTransaction(senderId, receiverId, amount, Double.toString(senderBalance));
         } else {
             Log.getInstance().logSuccessfulTransaction(senderId, receiverId, amount);
-            sender.withdraw(amount);
-            double validatedAmount = newAmountForReceiver(amount);
-            System.out.println("AGORA É QUE VAMOS ENTRAR NO DEPOSIT");
+            sender.withdraw(senderId, amount);
 
-
-            receiver.deposit(validatedAmount);
+            System.out.println("ENTERING DEPOSIT NOW");
+            receiver.deposit(receiverId, amount);
+            //deposit(receiverId, amount);
         }
 
-        return sender.getBalance();
+        return sender.getBalance(senderId);
     }
 
-    private double newAmountForReceiver(double amount) {
-        return amount;
-    }
+
 
 
     @Override
@@ -91,7 +92,8 @@ public class Bank implements IBank {
         var sum = 0.0;
 
         for (var account : accounts)
-            sum += account.getBalance();
+
+            sum += account.getBalance(account.getAccountId());
 
         return sum / accounts.size();
     }
