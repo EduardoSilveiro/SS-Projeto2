@@ -9,4 +9,6 @@ public class BankEmployeeEndpoint {
     public double:<=Employee(userId) getBalance();
 
     public double:<=Employee(userId) averageBalance();
+
+    public String:<=Employee(userId) getLog();
 }

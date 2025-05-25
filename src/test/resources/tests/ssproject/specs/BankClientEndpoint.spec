@@ -10,4 +10,7 @@ public class BankClientEndpoint {
 
     public double:>Client(userId) averageBalance();
 
+    public String:>Client(userId) getLog();
+
+
 }

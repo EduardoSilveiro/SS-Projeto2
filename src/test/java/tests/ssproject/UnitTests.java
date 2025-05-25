@@ -204,17 +204,26 @@ public class UnitTests {
     }
 
     @Test
-    public void testLogs(){
+    public void testLogsEmployee(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
+
+        employeeEndpoint.getLog();
+
+    }
+    //Este teste deve falhar, pois o cliente não pode ver o logs
+    @Test
+    public void testLogsClientCanNotAcess(){
         final IBank bank = newBank();
 
         final var id0 = bank.newAccount();
         final var id1 = bank.newAccount();
 
         final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
-
-        final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
-
-        employeeEndpoint.getLog();
 
         clientEndpoint.getLog();
     }
