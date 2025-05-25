@@ -112,6 +112,7 @@ public class UnitTests {
     }
 
 
+    //Deve funcionar, porque mudamos o id de 0 para userId
     @Test
     public void testGetBalanceOK() {
         final IBank bank = newBank();
@@ -124,7 +125,7 @@ public class UnitTests {
         endpoint.getBalance();
     }
 
-
+    //Deve funcionar, porque mudamos o id de 0 para userId
     @Test
     public void testGetBalanceNotOK() {
         final IBank bank = newBank();
@@ -137,6 +138,7 @@ public class UnitTests {
         endpoint.getBalance();
     }
 
+    //Deve funcionar porque os employees podem ver o balance das contas
     @Test
     public void testEmployeesBankAccountAcess(){
         final IBank bank = newBank();
@@ -152,7 +154,8 @@ public class UnitTests {
 
         employeeEndpoint.getBalance();
     }
-    //Cliente  não pode ver o averageBalance é suposto dar information leak
+    //Information Leak!
+    // Cliente  não pode ver o averageBalance é suposto dar
     @Test
     public void test_Client_Can_Not_Acess_Average_Balance(){
         final IBank bank = newBank();
@@ -169,7 +172,7 @@ public class UnitTests {
     }
 
 
-    //Employee pode ver o averageBalance é suposto não dar information leak
+    //Employee pode ver o averageBalance
     @Test
     public void test_Employee_Can_Acess_Average_Balance(){
         final IBank bank = newBank();
@@ -185,7 +188,7 @@ public class UnitTests {
         employeeEndpoint2.averageBalance();
     }
 
-
+    //Este teste deve funcionar, pois o employee pode ver o logs
     @Test
     public void testLogsMustNotIncludeAccInfo(){
         final IBank bank = newBank();
@@ -193,16 +196,13 @@ public class UnitTests {
         final var id0 = bank.newAccount();
         final var id1 = bank.newAccount();
 
-        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
-
         final IBankEndpoint employeeEndpoint = newBankEndpoint(BankEmployeeEndpoint.class, bank, id1);
 
         System.out.println(employeeEndpoint.getLog());
 
-        System.out.println(clientEndpoint.getLog());
-        //clientEndpoint.getLog();
     }
 
+    //O employee pode ver o logs
     @Test
     public void testLogsEmployee(){
         final IBank bank = newBank();
@@ -215,7 +215,8 @@ public class UnitTests {
         employeeEndpoint.getLog();
 
     }
-    //Este teste deve falhar, pois o cliente não pode ver o logs
+    //Information Leak!
+    //O cliente não pode ver o logs
     @Test
     public void testLogsClientCanNotAcess(){
         final IBank bank = newBank();
@@ -239,12 +240,9 @@ public class UnitTests {
         final IBankEndpoint clientEndpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
         final IBankEndpoint clientEndpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
 
-        clientEndpoint0.deposit(10.0);
+        clientEndpoint0.deposit(100.0);
 
-        final var balance = clientEndpoint0.getBalance();
-        System.out.println("Sender balance: " + balance);
-
-        clientEndpoint0.transfer(id1, 5.0);
+        clientEndpoint0.transfer(clientEndpoint1.getUserId(), 5.0);
 
     }
 

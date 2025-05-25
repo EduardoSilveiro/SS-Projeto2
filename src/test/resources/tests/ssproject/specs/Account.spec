@@ -8,4 +8,7 @@ public class Account {
 
     private double:Client(accountId) balance;
 
+    public void:<=Client(accountId) deposit(double amount);
+
+
 }

@@ -12,5 +12,9 @@ public class BankClientEndpoint {
 
     public String:>Client(userId) getLog();
 
+    public double:<=Client(userId) transfer(int:Client(receiverId) receiverId, double amount);
+
+
+
 
 }
