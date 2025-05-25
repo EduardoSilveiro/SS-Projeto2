@@ -25,4 +25,9 @@ public class BankAuditorEndpoint implements IBankEndpoint {
         return userId;
     }
 
+    @Override
+    public double averageBalance() {
+        return bank.getAccountBalance(userId);
+    }
+
 }

@@ -188,6 +188,24 @@ public class UnitTests {
         employeeEndpoint2.averageBalance();
     }
 
+    //Auditor pode ver o averageBalance
+    @Test
+    public void testAuditorAverage(){
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+
+        final IBankEndpoint auditorEndpoint = newBankEndpoint(BankAuditorEndpoint.class, bank, id0);
+        final IBankEndpoint clientEndpoint = newBankEndpoint(BankClientEndpoint.class, bank, id1);
+
+        clientEndpoint.deposit(100.0);
+        clientEndpoint.getBalance();
+        auditorEndpoint.averageBalance();
+    }
+
+
+
     //Este teste deve funcionar, pois o employee pode ver o logs
     @Test
     public void testLogsMustNotIncludeAccInfo(){
@@ -230,6 +248,13 @@ public class UnitTests {
     }
 
 
+
+
+
+
+    /**
+     * Para ultimo
+     */
     @Test
     public void testClientTransfer() {
         final IBank bank = newBank();
