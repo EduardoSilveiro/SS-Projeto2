@@ -29,7 +29,6 @@ public class BankClientEndpoint implements IBankEndpoint {
 
     @Override
     public double deposit(double amount) {
-
         return bank.deposit(this.userId, amount);
     }
 
@@ -45,6 +44,7 @@ public class BankClientEndpoint implements IBankEndpoint {
 
     @Override
     public String getLog() {
+        System.out.println("O CLIENT ENTROU NO LOG");
         return bank.getLog();
     }
 

@@ -1,5 +1,7 @@
 package ssproject;
 
+
+
 public class BankAuditorEndpoint implements IBankEndpoint {
 
     private final IBank bank;
@@ -8,16 +10,18 @@ public class BankAuditorEndpoint implements IBankEndpoint {
 
     public BankAuditorEndpoint(IBank bank) {
         this(bank, bank.newAccount());
-    }
+        }
 
     public BankAuditorEndpoint(IBank bank, int userId) {
         this.bank = bank;
         this.userId = userId;
+
+
     }
 
     @Override
     public String getLog() {
-        return bank.getLog();
+        throw new UnsupportedOperationException("Auditors can´t access this method");
     }
 
     @Override
@@ -27,6 +31,10 @@ public class BankAuditorEndpoint implements IBankEndpoint {
 
     @Override
     public double averageBalance() {
-        return bank.getAccountBalance(userId);
+        return bank.getAverageBalance();
+    }
+
+    public void getUserType() {
+        System.out.println("User type: Auditor");
     }
 }

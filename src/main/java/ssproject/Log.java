@@ -20,7 +20,6 @@ public class Log {
         log = new StringBuilder();
     }
 
-
     public void logAccountCreation(int accountId) {
         //log.append("Account ").append(accountId).append(" was successfully created.\n");
         log.append("Account ").append(" was successfully created.\n");

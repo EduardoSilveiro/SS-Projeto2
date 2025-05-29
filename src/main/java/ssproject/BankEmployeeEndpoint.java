@@ -1,5 +1,7 @@
 package ssproject;
 
+
+
 public class BankEmployeeEndpoint implements IBankEndpoint {
 
     private final IBank bank;
@@ -16,9 +18,10 @@ public class BankEmployeeEndpoint implements IBankEndpoint {
     }
 
 
+
     @Override
     public double averageBalance() {
-        return bank.getAccountBalance(userId);
+        return bank.getAverageBalance();
     }
 
     @Override
@@ -34,5 +37,8 @@ public class BankEmployeeEndpoint implements IBankEndpoint {
     @Override
     public double getBalance() {
         return bank.getAccountBalance(this.userId);
+
+
+
     }
 }

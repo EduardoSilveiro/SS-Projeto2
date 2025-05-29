@@ -9,4 +9,6 @@ public class BankAuditorEndpoint {
 
     public double:<=Auditor(userId) averageBalance();
 
+    public String:<=Auditor(userId) getLog();
+
 }

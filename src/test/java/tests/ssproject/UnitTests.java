@@ -117,7 +117,7 @@ public class UnitTests {
         final IBank bank = newBank();
 
         final var id0 = bank.newAccount();
-        final var id1 = bank.newAccount();
+        //final var id1 = bank.newAccount();
 
         final IBankEndpoint endpoint = newBankEndpoint(BankClientEndpoint.class, bank, id0);
 
@@ -224,7 +224,7 @@ public class UnitTests {
     }
 
     @Test
-    public void testAuditorAverage() {
+    public void testAverageVisibleToAuditors() {
         final IBank bank = newBank();
 
         final var id0 = bank.newAccount();
@@ -244,5 +244,28 @@ public class UnitTests {
         employee.averageBalance();
         //client.averageBalance(); O CLIENT NAO PODE FAZER averageBalance(); -> quando descomentado dá leak
     }
+
+
+    //In this test we prove that clients can´t see the average balance of a Bank.
+    @Test
+    public void testAverageVisibleToAuditorsLeak() {
+        final IBank bank = newBank();
+
+        final var id0 = bank.newAccount();
+        final var id1 = bank.newAccount();
+        final var id2 = bank.newAccount();
+
+        final IBankEndpoint client = newBankEndpoint(BankClientEndpoint.class, bank, id0);
+
+
+        client.deposit(10.0);
+
+        final var balance = client.getBalance();
+        System.out.println("Client balance: " + balance);
+
+        client.averageBalance(); //Ao tentar aceder
+    }
+
+
 
 }

@@ -28,7 +28,6 @@ public class Bank implements IBank {
         return accounts.get(accountId);
     }
 
-
     @Override
     public double getAccountBalance(int accountId) {
         return getAccount(accountId).getBalance(accountId);
@@ -90,6 +89,8 @@ public class Bank implements IBank {
     @Override
     public double getAverageBalance() {
         var sum = 0.0;
+
+        System.out.println("O CLIENT ENTROU NO BALANCE");
 
         for (var account : accounts)
 
