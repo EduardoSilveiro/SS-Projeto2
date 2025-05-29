@@ -10,8 +10,6 @@ public class Account {
 
     private double balance;
 
-    //private enum AccountType {"E","C","A"}
-
     public Account(int accountId) {
         this.accountId = accountId;
         this.balance = 0;
@@ -50,6 +48,15 @@ public class Account {
 
     public int getAccountId() {
         return accountId;
+    }
+
+
+    public double transferDeclass(double amount) {
+        return amount;
+    }
+
+    public double balanceDeclass(double balance) {
+        return balance;
     }
 
 }

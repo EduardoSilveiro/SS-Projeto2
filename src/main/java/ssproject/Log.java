@@ -15,7 +15,6 @@ public class Log {
 
     private final StringBuilder log;
 
-
     private Log() {
         log = new StringBuilder();
     }

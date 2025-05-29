@@ -37,8 +37,5 @@ public class BankEmployeeEndpoint implements IBankEndpoint {
     @Override
     public double getBalance() {
         return bank.getAccountBalance(this.userId);
-
-
-
     }
 }

@@ -10,8 +10,12 @@ public class Account {
 
     public double:<=Client(accountId) getBalance(int accountId);
 
-    public void:<=Client(accountId) deposit(int accountId, double:Client(_bot_) amount);
+    public void:=Client(accountId) deposit(int accountId, double amount);
 
     public void:<=Client(accountId) withdraw(int accountId, double amount);
+
+    public double:=Client(_bot_) transferDeclass(double amount);
+    
+    public double:=Client(_bot_) balanceDeclass(double balance);
 
 }

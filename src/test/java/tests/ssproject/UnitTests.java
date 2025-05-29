@@ -212,7 +212,6 @@ public class UnitTests {
         final var id1 = bank.newAccount();
 
         final IBankEndpoint clientEndpoint0 = newBankEndpoint(BankClientEndpoint.class, bank, id0);
-        final IBankEndpoint clientEndpoint1 = newBankEndpoint(BankClientEndpoint.class, bank, id1);
 
         clientEndpoint0.deposit(10.0);
 

@@ -15,8 +15,6 @@ public class BankAuditorEndpoint implements IBankEndpoint {
     public BankAuditorEndpoint(IBank bank, int userId) {
         this.bank = bank;
         this.userId = userId;
-
-
     }
 
     @Override
